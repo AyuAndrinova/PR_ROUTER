@@ -45,5 +45,17 @@ class Contact{
         $result = $stmt->affected_rows > 0 ? true : false;
         return $result;
     }
+    static function rawQuery($sql) {
+        global $conn;
+        $result = $conn->query($sql);
+        $rows = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+        }
+        $result->free();
+        return $rows;
+    }
 }
 ?>
